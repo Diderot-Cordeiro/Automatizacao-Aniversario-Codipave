@@ -21,6 +21,13 @@ for indice, linha in dados.iterrows():
         codigo = valor[:6]
         nome = valor[9:]
         celular = str(linha[7]).strip()
+        celular = (
+            celular
+            .replace("(", "")
+            .replace(")", "")
+            .replace(" ", "")
+            .replace("-", "")
+        )
         nascimento = str(linha[9]).strip()
         if "(FALECIDO)" not in nome.upper():
             clientes.append(

@@ -1,0 +1,15 @@
+# Ambiente virtual
+venv/
+
+# Dados reais
+dados/
+
+# Arquivos gerados
+saida/
+
+# Config local
+config/local.py
+
+# Arquivos temporários
+__pycache__/
+*.pyc

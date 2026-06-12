@@ -8,7 +8,8 @@ dados = pd.read_excel(
     header=None
 )
 
-print("\nProcurando clientes...\n")
+clientes = []
+clientes_ignorados = 0
 
 for indice, linha in dados.iterrows():
     valor = str(linha[0]).strip()
@@ -19,10 +20,23 @@ for indice, linha in dados.iterrows():
     ):
         codigo = valor[:6]
         nome = valor[9:]
-        print(
-            f"Código: {codigo}"
-        )
-        print(
-            f"Nome: {nome}"
-        )
-        print("-" * 40)
+        celular = str(linha[7]).strip()
+        nascimento = str(linha[9]).strip()
+        if "(FALECIDO)" not in nome.upper():
+            clientes.append(
+                {
+                    "Codigo": codigo,
+                    "nome": nome,
+                    "celular": celular,
+                    "nascimento": nascimento
+                }
+            )
+        else:
+            clientes_ignorados +=1 
+print(f"\nClientes encontrados: {len(clientes)}")
+print("\nPrimeiros registros:\n")
+for cliente in clientes[:5]:
+    print(cliente)
+print(
+    f"\nClientes ignorados (falecidos): {clientes_ignorados}"
+)

@@ -1,4 +1,5 @@
 import pandas as pd
+from datetime import datetime
 
 arquivo = "dados/aniversariantes junho.xls"
 
@@ -67,3 +68,16 @@ clientes_df.to_csv(
     index=False,
     encoding="utf-8-sig"
 )
+
+dia_hoje = datetime.now().strftime("%d/%m")
+clientes_hoje = []
+for cliente in clientes:
+    if cliente["nascimento"][:5] == dia_hoje:
+        clientes_hoje.append(cliente)
+print(
+    f"\nAniversariantes de hoje: {len(clientes_hoje)}"
+)
+for cliente in clientes_hoje[:5]:
+    print(
+        cliente["nome"]
+    )

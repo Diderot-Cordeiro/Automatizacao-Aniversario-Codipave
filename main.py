@@ -81,3 +81,13 @@ for cliente in clientes_hoje[:5]:
     print(
         cliente["nome"]
     )
+
+fila_df = pd.DataFrame(clientes_hoje)
+fila_df.to_csv(
+    "saida/fila_envio.csv",
+    index=False,
+    encoding="utf-8-sig"
+)
+print(
+    "\nFila de envio criada."
+)

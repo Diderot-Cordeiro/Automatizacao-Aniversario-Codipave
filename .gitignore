@@ -7,6 +7,10 @@ dados/
 # Arquivos gerados
 saida/
 
+# Filas e logs gerados em execução
+fila_envio.csv
+log_envios.csv
+
 # Config local
 config/local.py
 

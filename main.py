@@ -2,6 +2,13 @@ import pandas as pd
 from datetime import datetime
 import os
 
+from config.config import(
+    MENSAGEM,
+    CAMINHO_IMAGEM,
+    MODO_TESTE,
+    LIMITE_ENVIO
+)
+
 arquivo = "dados/aniversariantes junho.xls"
 
 dados = pd.read_excel(
@@ -115,3 +122,8 @@ else:
     print(
         "\nLog já existente"
     )
+
+print("\nConfig carregada:")
+print(MODO_TESTE)
+print(LIMITE_ENVIO)
+print(CAMINHO_IMAGEM)

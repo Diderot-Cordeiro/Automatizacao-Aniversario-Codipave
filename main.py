@@ -1,5 +1,6 @@
 import pandas as pd
 from datetime import datetime
+import os
 
 arquivo = "dados/aniversariantes junho.xls"
 
@@ -91,3 +92,26 @@ fila_df.to_csv(
 print(
     "\nFila de envio criada."
 )
+
+if not os.path.exists(
+    "saida\log_envios.csv"
+):
+    log_df = pd.DataFrame(
+        columns=[
+            "codigo",
+            "data_envio",
+            "status"
+        ]
+    )
+    log_df.to_csv(
+        "saida\log_envios.csv",
+        index=False,
+        encoding="utf-8-sig"
+    )
+    print(
+        "\nLog criado."
+    )
+else:
+    print(
+        "\nLog já existente"
+    )

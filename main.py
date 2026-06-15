@@ -60,3 +60,10 @@ print(
 print(
     f"Clientes ignorados (telefone inváido): {telefone_invalido}"
 )
+
+clientes_df = pd.DataFrame(clientes)
+clientes_df.to_csv(
+    "saida/clientes_limpo.csv",
+    index=False,
+    encoding="utf-8-sig"
+)

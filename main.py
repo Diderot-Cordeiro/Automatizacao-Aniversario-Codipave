@@ -11,6 +11,8 @@ dados = pd.read_excel(
 clientes = []
 clientes_ignorados = 0
 
+telefone_invalido = 0
+
 for indice, linha in dados.iterrows():
     valor = str(linha[0]).strip()
     if(
@@ -28,6 +30,14 @@ for indice, linha in dados.iterrows():
             .replace(" ", "")
             .replace("-", "")
         )
+        if(
+            celular == "nan"
+            or not celular.isdigit()
+            or len(celular) < 9
+        ):
+            telefone_invalido +=1
+
+            continue
         nascimento = str(linha[9]).strip()
         if "(FALECIDO)" not in nome.upper():
             clientes.append(
@@ -46,4 +56,7 @@ for cliente in clientes[:5]:
     print(cliente)
 print(
     f"\nClientes ignorados (falecidos): {clientes_ignorados}"
+)
+print(
+    f"Clientes ignorados (telefone inváido): {telefone_invalido}"
 )

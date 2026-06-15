@@ -129,7 +129,11 @@ print(LIMITE_ENVIO)
 print(CAMINHO_IMAGEM)
 
 print("\nPrévia das mensagens:\n")
-for cliente in clientes_hoje[:LIMITE_ENVIO]:
+if MODO_TESTE:
+    clientes_envio = clientes_hoje[:LIMITE_ENVIO]
+else:
+    clientes_envio = clientes_hoje
+for cliente in clientes_envio:
     primeiro_nome = (
         cliente["nome"]
         .split()[0]
@@ -140,3 +144,29 @@ for cliente in clientes_hoje[:LIMITE_ENVIO]:
     )
     print("----------------")
     print(mensagem)
+
+    status = {
+        "codigo": cliente["Codigo"],
+        "nome": cliente["nome"],
+        "celular": cliente["celular"],
+        "status": "pendente"
+    }
+    print("\nSTATUS:")
+    print(status)
+    print()
+
+    log_df = pd.read_csv(
+        "saida/log_envios.csv"
+    )
+    novo_status = pd.DataFrame(
+        [status]
+    )
+    log_df = pd.concat(
+        [log_df, novo_status],
+        ignore_index=True
+    )
+    log_df.to_csv(
+        "saida/log_envios.csv",
+        index=False,
+        encoding="utf-8-sig"
+    )

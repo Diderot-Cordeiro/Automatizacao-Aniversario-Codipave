@@ -124,9 +124,7 @@ else:
     )
 
 print("\nConfig carregada:")
-print(MODO_TESTE)
-print(LIMITE_ENVIO)
-print(CAMINHO_IMAGEM)
+print(f"\nModo teste: {MODO_TESTE} | Limite: {LIMITE_ENVIO}")
 
 print("\nPrévia das mensagens:\n")
 if MODO_TESTE:
@@ -146,17 +144,26 @@ for cliente in clientes_envio:
     print(mensagem)
 
     status = {
-        "codigo": cliente["Codigo"],
+        "codigo": str(cliente["Codigo"]).zfill(6),
+        "data_envio": datetime.now().strftime("%d/%m/%Y %H:%M"),
+        "status": "pendente",
         "nome": cliente["nome"],
-        "celular": cliente["celular"],
-        "status": "pendente"
-    }
-    print("\nSTATUS:")
-    print(status)
-    print()
+        "celular": cliente["celular"]
+}
 
-    log_df = pd.read_csv(
+    if os.path.exists("saida/log_envios.csv"):
+        log_df = pd.read_csv(
         "saida/log_envios.csv"
+    )
+else:
+    log_df = pd.DataFrame(
+        columns=[
+            "codigo",
+            "data_envio",
+            "status",
+            "nome",
+            "celular"
+        ]
     )
     novo_status = pd.DataFrame(
         [status]

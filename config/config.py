@@ -1,5 +1,5 @@
 MENSAGEM = """
-Olá, {primeiro nome}!
+Olá, {primeiro_nome}!
 Toda equipe da Codipave deseja um feliz aniversário!
 Que seu dia seja especial e cheio de momentos bons.
 Parabéns!

@@ -127,3 +127,16 @@ print("\nConfig carregada:")
 print(MODO_TESTE)
 print(LIMITE_ENVIO)
 print(CAMINHO_IMAGEM)
+
+print("\nPrévia das mensagens:\n")
+for cliente in clientes_hoje[:LIMITE_ENVIO]:
+    primeiro_nome = (
+        cliente["nome"]
+        .split()[0]
+        .title()
+    )
+    mensagem = MENSAGEM.format(
+        primeiro_nome=primeiro_nome
+    )
+    print("----------------")
+    print(mensagem)

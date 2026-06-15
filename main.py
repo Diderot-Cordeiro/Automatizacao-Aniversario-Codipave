@@ -101,7 +101,7 @@ print(
 )
 
 if not os.path.exists(
-    "saida\log_envios.csv"
+    "saida/log_envios.csv"
 ):
     log_df = pd.DataFrame(
         columns=[
@@ -111,7 +111,7 @@ if not os.path.exists(
         ]
     )
     log_df.to_csv(
-        "saida\log_envios.csv",
+        "saida/log_envios.csv",
         index=False,
         encoding="utf-8-sig"
     )
@@ -177,3 +177,36 @@ else:
         index=False,
         encoding="utf-8-sig"
     )
+
+print("\nLendo fila de envio...")
+def enviar_mensagem(numero, mensagem, imagem):
+    print(f"\nEnviando para {numero}")
+    print("Imagem:", imagem)
+    print(mensagem)
+
+    return True
+fila_df = pd.read_csv(
+    "saida/fila_envio.csv",
+    dtype={"codigo": str}
+)
+print(f"Clientes na fila: {len(fila_df)}")
+
+for _, cliente in fila_df.iterrows():
+
+    primeiro_nome = (
+        cliente["nome"]
+        .split()[0]
+        .title()
+    )
+
+    mensagem = MENSAGEM.format(
+        primeiro_nome=primeiro_nome
+    )
+
+    sucesso = enviar_mensagem(
+        cliente["celular"],
+        mensagem,
+        CAMINHO_IMAGEM
+    )
+
+    print("Sucesso:", sucesso)

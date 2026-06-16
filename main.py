@@ -179,12 +179,21 @@ else:
     )
 
 print("\nLendo fila de envio...")
-def enviar_mensagem(numero, mensagem, imagem):
-    print(f"\nEnviando para {numero}")
-    print("Imagem:", imagem)
-    print(mensagem)
 
-    return True
+def enviar_mensagem(numero, mensagem, imagem):
+    try:
+        print(f"\nEnviando para {numero}")
+        print("Imagem:", imagem)
+        print(mensagem)
+
+        # envio real entra aqui depois
+
+        return True
+
+    except Exception as erro:
+        print(f"\nErro ao enviar: {erro}")
+        return False
+    
 fila_df = pd.read_csv(
     "saida/fila_envio.csv",
     dtype={"codigo": str}
@@ -220,8 +229,11 @@ for _, cliente in fila_df.iterrows():
         mensagem,
         CAMINHO_IMAGEM
     )
+    
     if sucesso:
-        fila_df.loc[_,"status"] = "enviado"
+        fila_df.loc[_, "status"] = "enviado"
+    else:
+        fila_df.loc[_, "status"] = "erro"
 
     print("Sucesso:", sucesso)
 

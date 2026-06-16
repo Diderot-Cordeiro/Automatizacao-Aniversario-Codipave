@@ -208,5 +208,15 @@ for _, cliente in fila_df.iterrows():
         mensagem,
         CAMINHO_IMAGEM
     )
+    if sucesso:
+        fila_df.loc[_,"status"] = "enviado"
 
     print("Sucesso:", sucesso)
+
+fila_df.to_csv(
+    "saida/fila_envio.csv",
+    index=False,
+    encoding="utf-8-sig"
+)
+
+print("\nFila atualizada.")

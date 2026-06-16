@@ -189,6 +189,18 @@ fila_df = pd.read_csv(
     "saida/fila_envio.csv",
     dtype={"codigo": str}
 )
+
+print(fila_df.columns)
+
+if "status" not in fila_df.columns:
+    fila_df["status"] = "pendente"
+
+fila_df["status"] = fila_df["status"].fillna("pendente")
+
+fila_df = fila_df[
+    fila_df["status"] != "enviado"
+]
+
 print(f"Clientes na fila: {len(fila_df)}")
 
 for _, cliente in fila_df.iterrows():
